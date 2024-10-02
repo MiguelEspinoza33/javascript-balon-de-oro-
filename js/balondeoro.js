@@ -19,9 +19,10 @@ function agregarJugador() {
     const nombre = prompt("Ingresa el nombre del jugador:");
     const edad = parseInt(prompt("Ingresa la edad del jugador:"));
 
-    if(edad < 18){
-        alert( 'este jugador es muy joven para entrar en la nominacion ')
-    } else{
+    if (isNaN(edad) || edad < 18) {
+        alert('Este jugador es muy joven para entrar en la nominación.');
+        return;
+    }
         const equipo = prompt("Ingresa el equipo del jugador:");
         const goles = parseInt(prompt("Ingresa los goles anotados:"));
         const asistencias = parseInt(prompt("Ingresa las asistencias:"));
@@ -30,7 +31,7 @@ function agregarJugador() {
         const estadisticas = { goles, asistencias, partidos };
         const jugador = new Jugador(nombre, edad, equipo, estadisticas);
         jugadores.push(jugador);
-    }
+    
    
 
    
@@ -72,9 +73,13 @@ function iniciar() {
 
     while (continuar) {
         const numJugadores = parseInt(prompt(" ¿Cuántos jugadores deseas ingresar?"));
+        if (isNaN(numJugadores) || numJugadores <= 0) {
+            alert("Por favor ingresa un número válido de jugadores.");
+            continue;
+        }
 
         for (let i = 0; i < numJugadores; i++) {
-            agregarJugador();
+            agregarJugador(i);
         }
 
         const año = prompt("Ingresa el año que se esta evaluando:");
